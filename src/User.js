@@ -4,8 +4,13 @@ import ReactMapGL, {Marker} from 'react-map-gl'
 import Geocoder from 'react-map-gl-geocoder'
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import "./App.css";
+import {Location} from "./components/Location";
+import {Card,Button,ProgressBar} from 'react-bootstrap';
 
+const latitude =Location.latitude
+const longitude = Location.longitude
 const socket =  socketIOClient("http://localhost:5000")
+
 class User extends Component {
   constructor(props) {
     super(props)
@@ -16,14 +21,18 @@ class User extends Component {
       viewport: {
         width : "75vw",
         height : "75vh",
-        latitude: 29.9304758,
-        longitude: 78.062618,
+        latitude: latitude,
+        longitude: longitude,
         zoom : 10
       },
       userLocation : {},
       ambulanceLocation : {}
     }
   }
+
+
+
+
   
   componentDidMount() {
     socket.on("request-sent",(data) => {
@@ -31,6 +40,7 @@ class User extends Component {
         latitude : data.ambulanceLocation.latitude,
         longitude : data.ambulanceLocation.longitude
       }
+      
       this.setState ({
           displayName : data.displayName,
           address : data.address,
@@ -49,7 +59,7 @@ requestforHelp = () => {
       }
   }
   //Emitting the request event
-  //@App Component
+  //@App 6+Component
   socket.emit("request-for-help",requestDetails);
 }
 
@@ -81,24 +91,28 @@ handleOnResult = (event) => {
   })
 }
 
+
+
 render() {
   const {displayName,address} = this.state;
 console.log("lol");
  
   return (
     <div>
-      <button type="button" className="btn btn-primary" onClick={this.requestforHelp}>Request For Help</button>
+      
+      <center><Location/></center>
       <div class="heading">
       {displayName && address ? (
         <div>
-           <h3>{displayName} is coming to take you</h3>
-           <h3> It is here - {address}</h3> 
+           <h3>{displayName} is on  the way towards you  from {address}</h3>
+           <ProgressBar variant="success" now={40} />
         </div>
       ) : (
         <h3> </h3>
       )}
       </div>
       <div className = "map">
+        <Card>
         <ReactMapGL
           {...this.state.viewport}
           ref={this.mapRef}
@@ -107,14 +121,14 @@ console.log("lol");
           })}
           
           mapStyle = "mapbox://styles/mapbox/navigation-preview-day-v2"
-          mapboxApiAccessToken ="pk.eyJ1Ijoia2cta2FydGlrIiwiYSI6ImNrOGdicTdwZjAwMGUzZW1wZmxpMDdvajcifQ.7FtdVDqPnZh4pCtTtcNf4g">
+          mapboxApiAccessToken ="pk.eyJ1Ijoic2hpdmFtMjAwM3N5IiwiYSI6ImNrdm1semw0cTFoNGcybnRrMjlnazR2eHkifQ.dM2_j8n8x2xJ7UF9JfDtVw">
           
 
         <Geocoder
           mapRef={this.mapRef}
           onResult={this.handleOnResult}
           onViewportChange={this.handleGeocoderViewportChange}
-          mapboxApiAccessToken="pk.eyJ1Ijoia2cta2FydGlrIiwiYSI6ImNrOGdicTdwZjAwMGUzZW1wZmxpMDdvajcifQ.7FtdVDqPnZh4pCtTtcNf4g"
+          mapboxApiAccessToken="pk.eyJ1Ijoic2hpdmFtMjAwM3N5IiwiYSI6ImNrdm1semw0cTFoNGcybnRrMjlnazR2eHkifQ.dM2_j8n8x2xJ7UF9JfDtVw"
         />
 
             {Object.keys(this.state.ambulanceLocation).length !== 0 ? (
@@ -122,20 +136,29 @@ console.log("lol");
             latitude={this.state.ambulanceLocation.latitude}
             longitude={this.state.ambulanceLocation.longitude}
           >
-            <img className="marker" src="ambulancemarker.png"></img>
+            <img className="marker"alt='fun' src="ambulancemarker.png"></img>
           </Marker>
         ) : ( 
           <Marker
             latitude={this.state.viewport.latitude}
             longitude={this.state.viewport.longitude}
           >
-            <img className="marker" src="logo.png"></img>
+            <img className="marker" alt='for fun'src="logo.png"></img>
           </Marker>
         )}
 
         </ReactMapGL>
+        <Card.Text>
+
+          If you not allowing your location, search your location in search box in above map and press the help needed button
+    </Card.Text>
+    <Button onClick={this.requestforHelp} variant="outline-success">Help needed</Button>{' '}
+
+        </Card>
+
       </div>
-  </div>
+      
+       </div>
   );
 }
 }

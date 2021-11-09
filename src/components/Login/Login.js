@@ -2,7 +2,7 @@ import React from 'react';
 import Banner from '../Banner/Banner';
 import '../styles.css';
 import { useHistory } from 'react-router-dom';
-
+import logo from '../Login/logo.jpg'
 const Login = () => {
     const history = useHistory();
 
@@ -22,8 +22,14 @@ const Login = () => {
                            
                             <div className = 'row align-content-between align-items-center'>
                                 <div className = 'col-lg-6'>
-                                    {/* insert your company logo */}
-                                    [Company Logo]
+                                  
+                                    <img
+                                        alt=""
+                                        src={logo}
+                                        width="200"
+                                        height="200"
+                                        className="d-inline-block align-top"
+                                        />{' '}
                                 </div>
                                 <div className = 'col-lg-6 d-flex justify-content-end'>
                                     <button className = 'btn custom-btn secondary' onClick = {onClickSignUpBtn}>Don't have an account?</button>
@@ -56,8 +62,8 @@ const Login = () => {
                                 </div>
                                 <div className = 'col-lg-12'>
                                     <p className ='d-flex justify-content-center custom-text secondary'>
-                                        {/* insert your company name */}
-                                        © [Your Company]. 2020. All rights reserved.
+                                        
+                                        ©AIC. 2021. All rights reserved.
                                     </p>
                                 </div>
                             </div>
