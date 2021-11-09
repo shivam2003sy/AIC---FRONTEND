@@ -7,8 +7,6 @@ import "./App.css";
 import {Location} from "./components/Location";
 import {Card,Button,ProgressBar} from 'react-bootstrap';
 
-const latitude =Location.latitude
-const longitude = Location.longitude
 const socket =  socketIOClient("http://localhost:5000")
 
 class User extends Component {
@@ -21,8 +19,8 @@ class User extends Component {
       viewport: {
         width : "75vw",
         height : "75vh",
-        latitude: latitude,
-        longitude: longitude,
+        latitude: 25.436298,
+        longitude: 78.567352,
         zoom : 10
       },
       userLocation : {},
