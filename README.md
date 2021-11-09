@@ -1,4 +1,4 @@
-This project was is created for the IBM reimaginig 
+
 
 ## Available Scripts
 
