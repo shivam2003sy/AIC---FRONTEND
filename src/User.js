@@ -6,12 +6,12 @@ import "./App.css";
 import {Location} from "./components/Location";
 import {Button, Card, ProgressBar} from 'react-bootstrap';
 import {useUserLocationContext} from "./LocationContext";
-
+const socket = socketIOClient("http://localhost:5000")
 
 const User = () => {
 
 
-    const socket = socketIOClient("http://localhost:5000")
+    
 
     const userCoordinates = useUserLocationContext();
 
