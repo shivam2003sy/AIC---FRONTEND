@@ -14,6 +14,7 @@ import logo from './logo.jpg'
 
 
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+import {UserLocationProvider} from "./LocationContext";
 ReactDOM.render(
   <React.StrictMode>
 
@@ -29,7 +30,7 @@ ReactDOM.render(
           className="d-inline-block align-top"
         />{' '}
       Ambulance In Cloud</Navbar.Brand>
-    
+
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="me-auto">
@@ -37,7 +38,7 @@ ReactDOM.render(
         ?</Nav.Link></Link>
         <Link style={{textDecoration:'none'}} to='/login'><Nav.Link href="#link">Login as Ambulance</Nav.Link></Link>
         <Link style={{textDecoration:'none'}} to='/About'><Nav.Link href="#link">About project</Nav.Link></Link>
-        
+
       </Nav>
     </Navbar.Collapse>
   </Container>
@@ -50,9 +51,18 @@ ReactDOM.render(
       <Route path ="/sign-up" component={SignUp} />
       <Route path ="/login" component={Login} />
       <Route path="/:ambulanceid" component= {App} />
-      <Route path ="/" exact component={User} />
+      <Route path ="/" exact component={UserPage} />
     </Switch>
   </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );
+
+function UserPage ()  {
+
+  return(
+      <UserLocationProvider>
+        <User/>
+      </UserLocationProvider>
+  )
+}
