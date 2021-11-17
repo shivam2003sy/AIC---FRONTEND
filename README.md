@@ -57,8 +57,8 @@ Clone this repo in your local computer,
 
 Go to your desired location and open terminal there
 ```bash
-  git clone https://github.com/shivam2003sy/AIC--backend
-  cd AIC--backend
+  git clone https://github.com/shivam2003sy/AIC---FRONTEND
+  cd AIC--FRONTEND
 ```
 After that
 ```bash
@@ -68,7 +68,7 @@ To run the application
 ```bash
   npm start
 ```
-To install full application visit  [frontend](https://github.com/shivam2003sy/AIC---FRONTEND) also 
+To install full application visit  [Backend](https://github.com/shivam2003sy/AIC---backend) also 
     
 ## Environment Variables
 
